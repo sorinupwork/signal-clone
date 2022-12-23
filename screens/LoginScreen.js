@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button, Image, Input } from "@rneui/themed";
 import { StatusBar } from "expo-status-bar";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -36,7 +36,12 @@ const LoginScreen = () => {
       </View>
 
       <Button title="Login" onPress={signIn} containerStyle={styles.button} />
-      <Button title="Register" type="outline" containerStyle={styles.button} />
+      <Button
+        title="Register"
+        onPress={() => navigation.navigate("Register")}
+        type="outline"
+        containerStyle={styles.button}
+      />
       <View style={{ height: 100 }} />
     </KeyboardAvoidingView>
   );
