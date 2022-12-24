@@ -3,6 +3,8 @@ import React, { useLayoutEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Button, Input, Text } from "@rneui/themed";
 
+import { auth } from "../firebase";
+
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,7 +17,19 @@ const RegisterScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
-  const register = () => {};
+  const register = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        authUser.user.updateProfile({
+          displayName: name,
+          photoURL:
+            imageUrl ||
+            "https://i.ibb.co/jVWNTqV/depositphotos-134255710-stock-illustration-avatar-vector-male-profile-gray.webp",
+        });
+      })
+      .catch((e) => alert(e.message));
+  };
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
